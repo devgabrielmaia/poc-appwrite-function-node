@@ -1,3 +1,6 @@
+
+import { api } from './api';
+
 export default async ({ req, res, log, error }: any) => {
   // Why not try the Appwrite SDK?
   //
@@ -5,6 +8,8 @@ export default async ({ req, res, log, error }: any) => {
   // const client = new Client()
   //    .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
   //    .setKey(req.headers['x-appwrite-key']);
+
+  const appHono = api();
 
   // You can log messages to the console
   log('Hello, Logs!');
