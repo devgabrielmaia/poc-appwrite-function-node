@@ -1,22 +1,29 @@
-// main.ts
-import app from './api';
+export default async ({ req, res, log, error }: any) => {
+  // Why not try the Appwrite SDK?
+  //
+  // Set project and set API key
+  // const client = new Client()
+  //    .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
+  //    .setKey(req.headers['x-appwrite-key']);
 
-export default async function ({ req, res, log, error }: any) {
-  try {
-    const url = `${req.scheme}://${req.host}${req.path}${req.queryString ? `?${req.queryString}` : ''}`;
-    const request = new Request(url, {
-      method: req.method,
-      headers: req.headers,
-      body:
-        req.method !== 'GET' && req.method !== 'HEAD'
-          ? req.bodyText
-          : undefined,
-    });
-    const response = await app.fetch(request);
-    const body = await response.text();
-    return res.text(body, response.status, Object.fromEntries(response.headers));
-  } catch (e: any) {
-    error(e.message);
-    return res.text('Internal Server Error', 500);
+  // You can log messages to the console
+  log('Hello, Logs!');
+
+  // If something goes wrong, log an error
+  error('Hello, Errors!');
+
+  // The `req` object contains the request data
+  if (req.method === 'GET') {
+    // Send a response with the res object helpers
+    // `res.text()` dispatches a string back to the client
+    return res.text('Hello, World!');
   }
-}
+
+  // `res.json()` is a handy helper for sending JSON
+  return res.json({
+    motto: 'Build like a team of hundreds_',
+    learn: 'https://appwrite.io/docs',
+    connect: 'https://appwrite.io/discord',
+    getInspired: 'https://builtwith.appwrite.io',
+  });
+};
