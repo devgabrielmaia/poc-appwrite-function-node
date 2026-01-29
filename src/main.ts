@@ -1,5 +1,5 @@
 // main.ts
-import { app } from './app';
+import app from './api';
 
 export default async function ({ req, res, log, error }: any) {
   try {
